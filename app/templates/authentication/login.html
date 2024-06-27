@@ -1,0 +1,79 @@
+{% extends 'authentication/authenticationBase.html' %} {% block content %}
+<div class="container">
+  <div
+    class="row justify-content-center align-items-center"
+    style="height: 80vh"
+  >
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Login</h5>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="username"
+              class="form-control"
+              id="username"
+              placeholder="yourusername@domain.com"
+              value=""
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              value=""
+            />
+          </div>
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-primary" id="login">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="alertContainer"></div>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#login").click(function () {
+      var username = $("#username").val();
+      var password = $("#password").val();
+      login(username, password);
+    });
+
+    function login(username, password) {
+      $.ajax({
+        url: "{{ url_for('login') }}",
+        type: "POST",
+        dataType: "json",
+        data: {
+          username: username,
+          password: password,
+        },
+        success: function (response) {
+          console.log("response.responseJSON ", response.message )
+          window.location.href = "{{ url_for('homeRoute') }}";
+        },
+        error: function (error) {
+          console.log(error)
+          console.log("error:", error.responseJSON.message);
+          var alertHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            Login failed. <br>
+                            Please check your username and password.
+                        </div>`;
+
+          $("#alertContainer").html(alertHTML);
+        },
+      });
+    }
+  });
+</script>
+{% endblock %}
