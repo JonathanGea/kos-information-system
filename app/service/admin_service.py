@@ -7,10 +7,13 @@ class AdminService:
 
     def login(self, username, password):
         admin = self.admin_dao.get_admin_by_username(username)
-        print(admin)
-        print(hashlib.sha256(password.encode()).hexdigest())
         if admin and admin.password == hashlib.sha256(password.encode()).hexdigest():
-            print("True")
+            return True
+        return False
+
+    def is_password_same(self, username, old_password):
+        admin = self.admin_dao.get_admin_by_username(username)
+        if admin and admin.password == hashlib.sha256(old_password.encode()).hexdigest():
             return True
         return False
 

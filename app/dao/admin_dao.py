@@ -19,6 +19,7 @@ class AdminDAO:
         return None
 
     def update_password(self, username, new_password):
-        with self.conn.cursor() as cursor:
-            cursor.execute("UPDATE admin SET password = %s WHERE username = %s", (new_password, username))
-            self.conn.commit()
+        # with self.conn.cursor() as cursor:
+        #     cursor.execute("UPDATE admin SET password = %s WHERE username = %s", (new_password, username))
+        #     self.conn.commit()
+        pass

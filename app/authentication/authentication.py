@@ -18,30 +18,32 @@ def login():
             return jsonify({"message": "REQUIRED"}), 400
         
         if admin_service.login(username, password):
-            print("masdu")
             session['logged_in'] = True
             return jsonify({"message": "Login successful"}), 200
         
         return jsonify({"message": "Invalid credentials"}), 401
     
-
 @app.route('/api/logout', methods=['POST'])
 @login_required
 def logout():
     session.pop('logged_in', None)
     return jsonify({"message": "Logged out successfully"}), 200
+
+@app.route('/api/change_password', methods=['POST'])
+@login_required
+def change_password():
+    if request.method == 'POST':  
+        username = request.form['username']
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+
+        if not username or not old_password or new_password:
+            return jsonify({"message": "REQUIRED"}), 400
         
-        # return jsonify({"message": "Failed login"}), 401 
-    
-        # userData = getUserByEmail(email)  
-        # if userData is not None:
-        #     user = User(userData[0], userData[1], userData[2], userData[3], userData[4])
-        #     if check_password_hash(user.password, password):
-        #         login_user(user)
-                
-        #         return jsonify({"message": "Registration successful", "redirect_url": url_for('home')}), 200
-        #     else:
-        #         print("login gagal")
-        #         return jsonify({"message": "Failed login"}), 401 
-        # else:
-        #     return jsonify({"message": "Failed login"}), 401 
+        if not admin_service.is_password_same(username, old_password):
+            return jsonify({"message": "PASSWORD MISSMATCH"}), 400
+
+        admin_service.change_password(username, new_password)
+
+    return jsonify({"message": "SUCCESS"}), 200
+     

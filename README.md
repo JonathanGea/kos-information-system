@@ -6,6 +6,7 @@
 |-------------------------------|----------------|-------------------|----------|
 | Login (admin)                 |             |         ✅       | ✅      |
 | Logout                        |             |                | ✅      |
+| Logout                        |             |                | ✅      |
 | Ubah Password Admin           |             |                |       |
 | Manajemen Kamar               |             |                |       |
 |   - Tambah Kamar              |             |                |       |

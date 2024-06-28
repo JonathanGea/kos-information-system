@@ -14,8 +14,7 @@
               type="username"
               class="form-control"
               id="username"
-              placeholder="yourusername@domain.com"
-              value=""
+              value="admin"
             />
           </div>
           <div class="mb-3">
@@ -24,7 +23,7 @@
               type="password"
               class="form-control"
               id="password"
-              value=""
+              value="password"
             />
           </div>
           <div class="d-grid gap-2">
@@ -46,6 +45,7 @@
       var username = $("#username").val();
       var password = $("#password").val();
       login(username, password);
+      console.log(username, password);
     });
 
     function login(username, password) {
