@@ -6,13 +6,12 @@
 |-------------------------------|----------------|-------------------|----------|
 | Login (admin)                 |             |         ✅       | ✅      |
 | Logout                        |             |                | ✅      |
-| Logout                        |             |                | ✅      |
-| Ubah Password Admin           |             |                |       |
+| Ubah Password Admin           |             |                | ✅      |
 | Manajemen Kamar               |             |                |       |
 |   - Tambah Kamar              |             |                |       |
 |   - Non aktifkan Kamar        |             |                |       |
 |   - Edit Kamar                |             |                |       |
-|   - Lihat Kamar (+ riwayat)   |             |                |       |
+|   - Lihat Kamar (+ riwayat)   |             |                | ✅      |
 | Manajemen Pemesanan           |             |                |       |
 |   - Buat sewa kamar (Admin)   |             |                |       |
 |   - Akhiri sewa kamar         |             |                |       |
