@@ -10,19 +10,24 @@ admin_service = AdminService()
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
+    if request.method != 'POST':
+        return jsonify({"message": "Method not allowed"}), 405
+
+    try:
         username = request.form['username']
         password = request.form['password']
+    except KeyError as e:
+        return jsonify({"message": f"Missing form field: {e.args[0]}"}), 400
 
-        if not username or not password:
-            return jsonify({"message": "REQUIRED"}), 400
-        
-        if admin_service.login(username, password):
-            session['logged_in'] = True
-            return jsonify({"message": "Login successful"}), 200
-        
-        return jsonify({"message": "Invalid credentials"}), 401
-    
+    if not username or not password:
+        return jsonify({"message": "Both username and password are required"}), 400
+
+    if admin_service.login(username, password):
+        session['logged_in'] = True
+        return jsonify({"message": "Login successful"}), 200
+
+    return jsonify({"message": "Invalid credentials"}), 401
+
 @app.route('/api/logout', methods=['POST'])
 @login_required
 def logout():
