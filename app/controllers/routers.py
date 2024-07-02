@@ -8,6 +8,11 @@ from app import app
 def homeRoute():
     return render_template("admin/dashboard.html")
 
+# @app.route('/')
+# @login_required
+# def homeRoute():
+#     return render_template("admin/admin.html")
+
 @app.route('/register', methods=["GET"])
 def registerRoute():
     return render_template('authentication/register.html')
@@ -15,4 +20,6 @@ def registerRoute():
 @app.route('/login', methods=["GET"])
 def loginRoute():
     return render_template('authentication/login.html')
+
+
     
