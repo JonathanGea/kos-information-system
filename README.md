@@ -4,9 +4,9 @@
 
 | Task                          | Front-end (UI) | Front-end (logic) | Back-end |
 |-------------------------------|----------------|-------------------|----------|
-| Login (admin)                 |             |         ✅       | ✅      |
-| Logout                        |             |                | ✅      |
-| Ubah Password Admin           |             |                | ✅      |
+| Login (admin)                 |   ✅          |         ✅       | ✅      |
+| Logout                        |   ✅          |         ✅       | ✅      |
+| Ubah Password Admin           |   ✅          |         ✅       | ✅      |
 | Manajemen Kamar               |             |                |       |
 |   - Tambah Kamar              |             |                |       |
 |   - Non aktifkan Kamar        |             |                |       |

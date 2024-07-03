@@ -253,27 +253,7 @@
             return tanggalHasil;
         }
 
-        function logout() {
-            $.ajax({
-                url: '/api/logout',
-                method: 'POST',
-                success: function (response) {
-                    hideLoading();
-                    // Redirect to login page or perform other actions upon successful logout
-                    window.location.href = '/login'; // Ganti dengan URL login yang sesuai
-                },
-                error: function (error) {
-                    hideLoading();
-                    console.log("error:", error.message);
-                    var alertHTML = `
-                    <div class="alert alert-danger" role="alert">
-                        Logout failed. Please try again.
-                    </div>`;
-                            $("#alertContainer").empty();
-                            $("#alertContainer").html(alertHTML);
-                        }
-            });
-        }
+
 
 
     </script>

@@ -46,7 +46,7 @@
             <div class="sidebar-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ url_for('templateRoute') }}" class="logo">
+                    <a href="{{ url_for('homeRoute') }}" class="logo">
                         <img src="{{ url_for('static', filename='assets/img/kaiadmin/logo_light.svg') }}"
                             alt="navbar brand" class="navbar-brand" height="20" />
                     </a>
@@ -72,14 +72,14 @@
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
-                            
+
                         </li>
                         <li class="nav-item active">
                             <a href="#dashboard">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
-                            
+
                         </li>
                         <li class="nav-section">
                             <span class="sidebar-mini-icon">
@@ -137,9 +137,10 @@
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                                     <div class="dropdown-user-scroll scrollbar-outer">
                                         <li>
-                                            <a class="dropdown-item" href="#">Account Setting</a>
+                                            <a class="dropdown-item" href="{{ url_for('change_password_route') }}">change password</a>
+
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Logout</a>
+                                            <a class="dropdown-item" id="log-out" href="#">Logout</a>
                                         </li>
                                     </div>
                                 </ul>
@@ -215,9 +216,41 @@
 
 
         <script>
+            $(document).ready(function () {
+                $('#log-out').click(function (event) {
+                    event.preventDefault();
+                    logout()
+                })
 
+            })
+
+
+
+
+            function logout() {
+                $.ajax({
+                    url: '/api/logout',
+                    method: 'POST',
+                    success: function (response) {
+                        // hideLoading();
+                        // Redirect to login page or perform other actions upon successful logout
+                        window.location.href = '/login'; // Ganti dengan URL login yang sesuai
+                    },
+                    error: function (error) {
+                        // hideLoading();
+                        console.log("error:", error.message);
+                        var alertHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        Logout failed. Please try again.
+                    </div>`;
+                        $("#alertContainer").empty();
+                        $("#alertContainer").html(alertHTML);
+                    }
+                });
+            }
         </script>
         {% block scripts %}{% endblock %}
+
 </body>
 
 </html>

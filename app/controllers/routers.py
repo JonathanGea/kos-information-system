@@ -22,4 +22,9 @@ def loginRoute():
     return render_template('authentication/login.html')
 
 
+@app.route('/change_password', methods=["GET"])
+def change_password_route():
+    return render_template('admin/change_password.html')
+
+
     

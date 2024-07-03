@@ -37,18 +37,31 @@ def logout():
 @app.route('/api/change_password', methods=['POST'])
 @login_required
 def change_password():
-    if request.method == 'POST':  
+    if request.method != 'POST':
+        return jsonify({"message": "Method not allowed"}), 405
+    
+    try:
         username = request.form['username']
         old_password = request.form['old_password']
         new_password = request.form['new_password']
-
-        if not username or not old_password or new_password:
-            return jsonify({"message": "REQUIRED"}), 400
-        
+    except KeyError as e:
+        return jsonify({"message": f"Missing form field: {e.args[0]}"}), 400
+    
+    if not username:
+        return jsonify({"message": "Username cannot be empty"}), 400
+    if not old_password:
+        return jsonify({"message": "Old password cannot be empty"}), 400
+    if not new_password:
+        return jsonify({"message": "New password cannot be empty"}), 400
+    
+    try:
         if not admin_service.is_password_same(username, old_password):
-            return jsonify({"message": "PASSWORD MISSMATCH"}), 400
+            return jsonify({"message": "Old password is incorrect"}), 400
 
         admin_service.change_password(username, new_password)
+    except Exception as e:
+        # Log the exception
+        app.logger.error(f"An error occurred: {str(e)}")
+        return jsonify({"message": "An error occurred while changing the password"}), 500
 
-    return jsonify({"message": "SUCCESS"}), 200
-     
+    return jsonify({"message": "Password successfully changed"}), 200
