@@ -47,12 +47,15 @@ def change_password():
     except KeyError as e:
         return jsonify({"message": f"Missing form field: {e.args[0]}"}), 400
     
-    if not username:
-        return jsonify({"message": "Username cannot be empty"}), 400
-    if not old_password:
-        return jsonify({"message": "Old password cannot be empty"}), 400
-    if not new_password:
-        return jsonify({"message": "New password cannot be empty"}), 400
+    required_fields = {
+        "username": "Username cannot be empty",
+        "old_password": "Old password cannot be empty",
+        "new_password": "New password cannot be empty"
+    }
+
+    for field, message in required_fields.items():
+        if not locals()[field]:
+            return jsonify({"message": message}), 400
     
     try:
         if not admin_service.is_password_same(username, old_password):
@@ -60,7 +63,6 @@ def change_password():
 
         admin_service.change_password(username, new_password)
     except Exception as e:
-        # Log the exception
         app.logger.error(f"An error occurred: {str(e)}")
         return jsonify({"message": "An error occurred while changing the password"}), 500
 
