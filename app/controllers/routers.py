@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request, jsonify
 from app.utils.auth import login_required
 
+
 from app import app
 
 @app.route('/')

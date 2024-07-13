@@ -19,4 +19,9 @@ class AdminService:
 
     def change_password(self, username, new_password):
         new_password_hashed = hashlib.sha256(new_password.encode()).hexdigest()
+        print (new_password_hashed)
         self.admin_dao.update_password(username, new_password_hashed)
+
+    def get_admins(self):
+        data = self.admin_dao.get_admins()
+        return data.to_dict()

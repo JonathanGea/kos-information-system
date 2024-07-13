@@ -6,6 +6,10 @@ from app.utils.auth import login_required
 from app.models.admin import Admin
 from app.service.admin_service import AdminService
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 admin_service = AdminService()
 
 @app.route('/api/login', methods=['POST'])
@@ -59,6 +63,7 @@ def change_password():
     
     try:
         if not admin_service.is_password_same(username, old_password):
+            print("afsdf")
             return jsonify({"message": "Old password is incorrect"}), 400
 
         admin_service.change_password(username, new_password)
@@ -67,3 +72,9 @@ def change_password():
         return jsonify({"message": "An error occurred while changing the password"}), 500
 
     return jsonify({"message": "Password successfully changed"}), 200
+
+@app.route('/api/adminss', methods=['GET'])
+def adminsss():
+    data = admin_service.get_admins()
+    return jsonify({"message": "SUKSSES", "data" : data}), 200
+    
