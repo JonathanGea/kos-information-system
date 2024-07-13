@@ -6,10 +6,6 @@ from app.utils.auth import login_required
 from app.models.admin import Admin
 from app.service.admin_service import AdminService
 
-import logging
-
-logging.basicConfig(level=logging.DEBUG)
-
 admin_service = AdminService()
 
 @app.route('/api/login', methods=['POST'])

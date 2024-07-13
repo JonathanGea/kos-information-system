@@ -32,7 +32,7 @@ def execute_query(query, parameters=None):
 
     return success
 
-def execute_queryWithReturn(query, parameters=None):
+def execute_query_with_return(query, parameters=None):
     conn = get_database_connection()
     cur = conn.cursor()
     data = ""

@@ -6,7 +6,7 @@ from app.service.room_service  import RoomService
 room_service = RoomService()
 
 @app.route('/api/room', methods=["GET"])
-@login_required
+# @login_required
 def room():
     rooms = room_service.list_rooms()
     return jsonify({"message": "SUKSSES", "data" : rooms}), 200
